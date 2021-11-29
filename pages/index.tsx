@@ -1,13 +1,20 @@
 import { createClient } from 'contentful';
 import type { GetStaticProps, NextPage } from 'next';
+import RecipeCard from '../components/RecipeCard';
+import { Recipe } from '../types';
 
 interface HomeProps {
-  recipes: any[];
+  recipes: Recipe[];
 }
 
 const Home: NextPage<HomeProps> = ({ recipes }: HomeProps) => {
-  console.log(recipes);
-  return <div className="recipe-list">Recipe List</div>;
+  return (
+    <div className="recipe-list">
+      {recipes.map((recipe) => (
+        <RecipeCard key={recipe.sys.id} recipe={recipe} />
+      ))}
+    </div>
+  );
 };
 
 export const getStaticProps: GetStaticProps = async () => {
